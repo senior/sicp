@@ -1,4 +1,4 @@
-(defproject leiningen "0.0.1-SNAPSHOT"
+(defproject sicp "0.0.1-SNAPSHOT"
   :description "SICP Excecises"
   :url "http://github.com/senior/sicp"
   :dependencies [[org.clojure/clojure "1.1.0-master-SNAPSHOT"]

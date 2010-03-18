@@ -2,11 +2,17 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>leiningen</groupId>
-  <artifactId>leiningen</artifactId>
+  <groupId>sicp</groupId>
+  <artifactId>sicp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>leiningen</name>
+  <name>sicp</name>
   <description>SICP Excecises</description>
+  <scm>
+    <connection>scm:git:git://github.com/senior/sicp.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/senior/sicp.git</developerConnection>
+    <tag>2370d4ba2794ba7f0d84c45e6ca3c9e3a5ee2ce7</tag>
+    <url>http://github.com/senior/sicp</url>
+  </scm>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
