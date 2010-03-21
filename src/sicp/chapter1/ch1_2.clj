@@ -1,6 +1,6 @@
-(ns sicp.chapter1.ch1_2
-  (:require sicp.chapter1.ch1_1)
-  (:use sicp.chapter1.ch1_1))
+(ns sicp.chapter1.ch1-2
+  (:require sicp.chapter1.ch1-1)
+  (:use sicp.chapter1.ch1-1))
 
 (import '(java.util Random))
 

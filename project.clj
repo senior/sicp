@@ -5,4 +5,4 @@
                  [org.clojure/clojure-contrib "1.1.0"]]
 ;                 [ant/ant-launcher "1.6.2"]
 ;                 [org.apache.maven/maven-ant-tasks "2.0.10"]]
-  :dev-dependencies [[org.clojure/swank-clojure "1.1.0"]])
+  :dev-dependencies [[swank-clojure/swank-clojure "1.1.0"]])

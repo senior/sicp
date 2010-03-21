@@ -1,4 +1,4 @@
-(ns sicp.chapter1.ch1_1)
+(ns sicp.chapter1.ch1-1)
 
 (comment 1.1
 
