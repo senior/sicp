@@ -179,3 +179,19 @@
   (defn n-fun [i] (if (= i 1) x (- (* x x))))
   (defn d-fun [i] (inc (* 2 (dec i))))
   (float (cont-frac n-fun d-fun k)))
+
+
+(def dx 0.00001)
+
+(defn deriv [g]
+  (fn [x]
+    (/ (- (g (+ x dx)) (g x))
+       dx)))
+
+(defn newton-transform [g]
+  (fn [x]
+    (- x (/ (g x) ((deriv g) x)))))
+
+(defn newtons-method [g guess]
+  (fixed-point (newton-transform g) guess))
+

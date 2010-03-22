@@ -69,28 +69,60 @@ The above is tail recursive.
       c
       (recur b c (+ a b c) (inc i)))))
 
-(comment 1.12
+;; Exercise 1.12
+;;(pascal-triangle 6 3) 10
+;;(pascal-triangle 4 2) 3
+;;(pascal-triangle 5 4) 4
 
-TODO
-
-)
+(defn pascal-triangle [row element]
+  (if (or (= 1 element) (= row element)) 
+    1
+    (+ (pascal-triangle (dec row) (dec element))
+       (pascal-triangle (dec row) element))))
+			
+  
 
 (comment 1.13
 
-TODO
+;To prove this, the base case for the induction hypothesis is Fib(0)=0,
+;which is true since phi^0=1 - psi^0 = 1, which then follows 1-1/sqrt 5 = 0.  
+;Fib(1) is also a base case, which is (1 + sqrt 5)/2 + (1 - sqrt 5)/2
+;which is 2/2 = 1, so Fib(1)=1.
+
+;Inductive Step:
+;
+;I use Fib(n) = phi^n - psi^n/sqrt 5, which, by induction, 
+;I assume Fib(n-1) = (phi^(n-1) + psi^(n-1))/sqrt 5 and 
+;Fib(n-2) = (phi^(n-2) + psi^(n-2))/sqrt 5.  Using this, I can then
+;say Fib(n) =  (phi^(n-1) + psi^(n-1))/sqrt 5 +  (phi^(n-2) + psi^(n-2))/sqrt 5.
+
+;Some math:
+;Fib(n) = (phi^(n-1) - psi^(n-1))/sqrt 5 +  (phi^(n-2) - psi^(n-2))/sqrt 5
+;= (phi * phi^(n-2) - psi * psi^(n-2))/sqrt 5 +  (phi^(n-2) - psi^(n-2))/sqrt 5
+;= 1/sqrt 5 * ((phi * phi^(n-2) - psi * psi^(n-2)) + (phi^(n-2) - psi^(n-2)))
+;= 1/sqrt 5 * ((phi * phi^(n-2) + phi^(n-2)) - (psi * psi^(n-2) + psi^(n-2)))
+;= 1/sqrt 5 * ((phi^(n-2) * (phi + 1)) - (psi^(n-2) * (psi + 1)))
+;= 1/sqrt 5 * ((phi^(n-2) * (phi^2)) - (psi^(n-2) * (psi^2)))
+;= 1/sqrt 5 * (phi^n - psi^n)
+;= (phi^n - psi^n)/sqrt 5
 
 )
 
 (comment 1.14
 
-
+;Each step in the execution of this procedure results in 2 additional 
+;subproblems without divide the solution space, thus the problem doubles
+;while the solutions space decreases by 1.  Assuming the addition operations
+;etc can be done in O(1) time, it is O(2^n)
 
 )
 
 (comment 1.15
 
+;p is applied 5 times, 12.5/3, the 5th time yields .05, less than .1 and so 
+;.15 is the last time p is executed
 
-
+;Number of steps is log a, since a is divided by 3 each time
 )
 
 (defn fast-expt-iter [b n]
