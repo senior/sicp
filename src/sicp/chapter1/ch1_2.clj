@@ -110,10 +110,10 @@ The above is tail recursive.
 
 (comment 1.14
 
-;Each step in the execution of this procedure results in 2 additional 
-;subproblems without divide the solution space, thus the problem doubles
-;while the solutions space decreases by 1.  Assuming the addition operations
-;etc can be done in O(1) time, it is O(2^n)
+;Each step in the execution of this procedure results in 2 additional
+;subproblems (one of which is not smaller with respect to amount).
+;So n iterations and at each iteration, one subproblem of size n and another 
+;of the same size, making the answer O(n^3).
 
 )
 
