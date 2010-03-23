@@ -142,11 +142,11 @@
 
 ;;Exercise 1.37
 (defn cont-frac [n d k]
-  (defn cont-frac-inner [i]
-    (if (< i k)
-      (/ (n i) (+ (d i) (cont-frac-inner (inc i))))
-      (d k)))
-  (cont-frac-inner 1))
+  (letfn [(cont-frac-inner [i]
+			   (if (< i k)
+			     (/ (n i) (+ (d i) (cont-frac-inner (inc i))))
+			     (d k)))]
+    (cont-frac-inner 1)))
 
 ;; Using a value of k greater than 10 yields .6180
 ;; (cont-frac (fn [x] 1.0) (fn [x] 1.0) 11)
@@ -168,7 +168,7 @@
 	    (< i 1) 0
 	    (or (= x 0) (= x 1)) 1
 	    :else (+ 2 (d-sequence (- i 3))))))
-  (cont-frac-iter (fn [x] 1.0) d-sequence k ))
+  (cont-frac (fn [x] 1.0) d-sequence k ))
 
 ;; Exercise 1.39
 ;; (tan-cf 1.36 20) -> 4.6734414
@@ -212,4 +212,9 @@
 			    (fn [x] (fprime x))
 			    (recur (my-compose fprime f) (dec n))))]
     (inner-repeated f (dec n))))
+
+;; Exercise 1.44
+(defn smooth [f]
+  (fn [x]
+    (/ (+ (f (- x dx)) (f x) (f (+ x dx))) 3)))
 
