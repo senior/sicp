@@ -1,8 +1,6 @@
-(ns sicp.ch1-3
+(ns sicp.chapter1.ch1-3
   (:require (clojure.contrib.generic.math-functions))
-  (:use (sicp.chapter1.ch1-2)
-	(sicp.chapter1.ch1-1)))
-
+  (:use (sicp.chapter1 ch1-2 ch1-1)))
 
 (defn sum [term a next b]
   (if (> a b)
@@ -194,4 +192,24 @@
 
 (defn newtons-method [g guess]
   (fixed-point (newton-transform g) guess))
+
+
+;; Exercise 1.41
+;; (((double (double double)) inc) 5) = 21
+(defn double-call [f]
+  (fn [x] (f (f x))))
+
+;; Exercise 1.42
+;; ((my-compose square inc) 6) -> 49
+(defn my-compose [f g]
+  (fn [x] (f (g x))))
+
+;; Exercise 1.43
+;; ((my-repeated square 2) 5) -> 625
+(defn my-repeated [f n]
+  (letfn [(inner-repeated [fprime n]
+			  (if (< n 1)
+			    (fn [x] (fprime x))
+			    (recur (my-compose fprime f) (dec n))))]
+    (inner-repeated f (dec n))))
 
