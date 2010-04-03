@@ -1,12 +1,15 @@
 (ns sicp.chapter1.ch1-3
-  (:require (clojure.contrib.generic.math-functions))
+  (:require [clojure.contrib.generic.math-functions :as math])
   (:use (sicp.chapter1 ch1-2 ch1-1)))
+
 
 (defn sum [term a next b]
   (if (> a b)
       0
       (+ (term a)
          (sum term (next a) next b))))
+
+(def dx 0.00001)
 
 (defn integral [f a b dx]
   (defn add-dx [x] (+ x dx))
@@ -138,7 +141,7 @@
   (try-it first-guess))
 
 (defn exp-estimate [x]
-  (debugging-fixed-point (fn [x] (/ (clojure.contrib.generic.math-functions/log 1000) (clojure.contrib.generic.math-functions/log x))) 1.1))
+  (debugging-fixed-point (fn [x] (/ (math/log 1000) (clojure.contrib.generic.math-functions/log x))) 1.1))
 
 ;;Exercise 1.37
 (defn cont-frac [n d k]
@@ -156,7 +159,7 @@
     (if (< i k)
       (recur (inc i) (/ result (+ (* (d i) (n (inc i))) (n i))))
       (/ result (d k))))
-  (cont-frac-inner 1))
+  (cont-frac-iter-inner 1))
 
 ;;Exercise 1.38
 
@@ -177,21 +180,6 @@
   (defn n-fun [i] (if (= i 1) x (- (* x x))))
   (defn d-fun [i] (inc (* 2 (dec i))))
   (float (cont-frac n-fun d-fun k)))
-
-
-(def dx 0.00001)
-
-(defn deriv [g]
-  (fn [x]
-    (/ (- (g (+ x dx)) (g x))
-       dx)))
-
-(defn newton-transform [g]
-  (fn [x]
-    (- x (/ (g x) ((deriv g) x)))))
-
-(defn newtons-method [g guess]
-  (fixed-point (newton-transform g) guess))
 
 
 ;; Exercise 1.41
@@ -218,3 +206,22 @@
   (fn [x]
     (/ (+ (f (- x dx)) (f x) (f (+ x dx))) 3)))
 
+;; Exercise 1.46
+(defn iterative-improve [good-enough-fn? improve-guess-fn]
+  (fn [guess]
+    (let [next-guess (improve-guess-fn guess)]
+      (if (good-enough-fn? guess next-guess)
+	guess
+	(recur next-guess)))))
+
+(defn improve-146 [x guess]
+  (average guess (/ x guess)))
+
+
+(defn fixed-point-iterative [f first-guess]
+  ((iterative-improve (fn [v1 v2] (< (abs (- v1 v2)) tolerance)) f) first-guess))
+
+(defn iter-improve-sqrt [x]
+  (fixed-point-iterative (fn [guess] (improve-146 x guess)) x))
+
+  

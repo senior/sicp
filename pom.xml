@@ -10,7 +10,7 @@
   <scm>
     <connection>scm:git:git://github.com/senior/sicp.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/senior/sicp.git</developerConnection>
-    <tag>d74cfe6c8bd6cbe188a2aa30905fa1e03eceb5e7</tag>
+    <tag>98c2f92d6fef8e2e5096444005bd7f2252116b81</tag>
     <url>http://github.com/senior/sicp</url>
   </scm>
   <build>
@@ -39,12 +39,12 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.1.0-master-SNAPSHOT</version>
+      <version>1.2.0-master-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure-contrib</artifactId>
-      <version>1.1.0</version>
+      <version>1.2.0-master-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
