@@ -1,4 +1,5 @@
 (ns sicp.chapter2.ch2-1
+  (:require [clojure.contrib.generic.math-functions :as math])
   (:use (sicp.chapter1 ch1-1 ch1-2)))
 
 (defn make-rat [n d] (list n d))
@@ -93,4 +94,68 @@
 	
 	
   
-     
+ ;; Ex 2.4
+
+(defn my-cons [x y]
+     (fn [m] (m x y)))
+
+(defn my-car [z]
+     (z (fn [p q] p)))
+
+(defn my-cdr [z]
+     (z (fn [p q] q)))
+
+
+;; Ex 2.5
+
+(defn int-cons [x y]
+  (* (fast-expt 2 x) (fast-expt 3 y)))
+
+(defn- divide-until
+  ([x even-or-odd? divisor]
+     (loop [value x count 0]
+       (if (or (= value 1) (even-or-odd? value))
+	 count
+	 (recur (/ value divisor) (inc count))))))
+
+(def divide-until-odd #(divide-until % odd? 2))
+(def divide-until-even #(divide-until % even? 3))
+
+(defn int-car [x]
+  (divide-until-odd x))
+
+(defn int-cdr [x]
+  (->> 1944
+       divide-until-odd
+       (fast-expt 2)
+       (/ 1944)
+       divide-until-even))
+
+;; Ex 2.6
+
+(def church-zero
+     (fn [_] (fn [x] x)))
+
+(defn add-1 [n]
+  (fn [f]
+    (fn [x]
+      (f ((n f) x)))))
+
+(def church-one
+     (fn [f] (fn [x] (f x))))
+
+(def church-two 
+     (fn [f] (fn [x] (f (f x)))))
+
+(defn church+ [num1 num2]
+  (fn [f]
+    (fn [x]
+      (->> x
+	   ((num1 f))
+	   ((num2 f))))))
+
+(defn dechurchify [church-number]
+  ((church-number inc) 0))
+
+;;(dechurchify (church+ church-one church-two)) => 3
+
