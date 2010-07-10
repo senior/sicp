@@ -159,3 +159,24 @@
 
 ;;(dechurchify (church+ church-one church-two)) => 3
 
+;; Ex 2.7
+
+(defn make-interval [a b]
+  (cons a (list b)))
+
+(defn lower-bound [interval]
+  (first interval))
+
+(defn upper-bound [interval]
+  (second interval))
+
+;; Ex 2.8
+
+(defn add-interval [x y]
+  (make-interval (+ (lower-bound x) (lower-bound y))
+                 (+ (upper-bound x) (upper-bound y))))
+
+(defn sub-interval [interval1 interval2]
+  (add-interval interval1 (make-interval (- (upper-bound interval2))
+					 (- (lower-bound interval2)))))
+
