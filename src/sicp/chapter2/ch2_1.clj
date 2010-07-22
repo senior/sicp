@@ -180,3 +180,44 @@
   (add-interval interval1 (make-interval (- (upper-bound interval2))
 					 (- (lower-bound interval2)))))
 
+;; Ex 2.9
+
+(defn width [interval]
+  (-> interval
+      upper-bound
+      (- (lower-bound interval))
+      (/ 2)))
+
+(defn add-width [interval1 interval2]
+  (-> interval1
+      width
+      (+ (width interval2))))
+
+(defn subtract-width [interval1 interval2]
+  (-> interval1
+      width
+      (- (width interval2))))
+
+;; Ex 2.10
+
+(defn mul-interval [x y]
+  (let [p1 (* (lower-bound x) (lower-bound y))
+	p2 (* (lower-bound x) (upper-bound y))
+	p3 (* (upper-bound x) (lower-bound y))
+	p4 (* (upper-bound x) (upper-bound y))]
+    (make-interval (min p1 p2 p3 p4)
+		   (max p1 p2 p3 p4))))
+
+(defn spans-zero? [x]
+  (or (and (neg? (lower-bound x))
+	   (pos? (upper-bound x)))
+      (and (neg? (upper-bound x))
+	   (pos? (lower-bound x)))))
+
+(defn div-interval [x y]
+  (when (or (spans-zero? x) (spans-zero? y))
+    (throw (IllegalArgumentException. "Cannont divide by a interval spanning 0")))
+  (mul-interval x
+                (make-interval (/ 1.0 (upper-bound y))
+                               (/ 1.0 (lower-bound y)))))
+
